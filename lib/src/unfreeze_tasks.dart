@@ -2,8 +2,8 @@ import 'dart:async';
 import 'dart:isolate';
 import 'unfreeze_worker.dart';
 
-void unfreezeTasks({
-  required List<Future<void> Function()> tasks,
+void unfreezeTasks<T>({
+  required List<Future<T> Function()> tasks,
   required Function(double) onProgress,
   required Function(Duration) onRemainingTime,
   required Function() then,
@@ -13,7 +13,7 @@ void unfreezeTasks({
 
   for (var task in tasks) {
     final ReceivePort receivePort = ReceivePort();
-    final worker = Worker(task, onProgress, onRemainingTime);
+    final worker = UnfreezeWorker<T>(task, onProgress, onRemainingTime);
     receivePorts.add(receivePort);
 
     await Isolate.spawn(
@@ -44,13 +44,10 @@ void unfreezeTasks({
 }
 
 void _isolateFunction(Map<String, dynamic> payload) async {
-  final Worker worker = payload['worker'];
+  final UnfreezeWorker<dynamic> worker = payload['worker'];
   final SendPort sendPort = payload['port'];
 
-  // Track the start time for calculating elapsed and remaining time
   final DateTime startTime = DateTime.now();
-
-  // Set up a timer to simulate progress reporting
   final int totalIterations = 10;
   int currentIteration = 0;
   Timer.periodic(Duration(seconds: 1), (timer) {
@@ -64,15 +61,13 @@ void _isolateFunction(Map<String, dynamic> payload) async {
 
     if (currentIteration == totalIterations) {
       timer.cancel();
-      sendPort.send('complete'); // Signal completion to the main isolate
+      sendPort.send('complete');
     }
   });
 
-  // Run the async function
   try {
     await worker.run();
   } catch (error) {
-    // Send error message to the main isolate
     sendPort.send(error);
   }
 }

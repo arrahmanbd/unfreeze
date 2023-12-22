@@ -2,37 +2,28 @@ import 'dart:async';
 import 'dart:isolate';
 import 'unfreeze_worker.dart';
 
-void unfreeze({
-  required Future<void> Function() function,
-  required Function(double) onProgress,
+void unfreeze<T>({
+  required Future<T> Function() function,
+  required Function(double) progress,
   required Function(Duration) remaining,
   required Function() then,
   required Function(dynamic) onError,
 }) async {
   final ReceivePort receivePort = ReceivePort();
+  final worker = UnfreezeWorker<T>(function, progress, remaining);
 
-  // Create a Worker instance with the provided function and callbacks
-  final worker = Worker(function, onProgress, remaining);
-
-  // Spawn a new isolate
   await Isolate.spawn(
       _isolateFunction, {'worker': worker, 'port': receivePort.sendPort});
 
-  // Listen for messages from the isolate
   receivePort.listen((dynamic message) {
     if (message is double) {
-      // Progress message received
-      onProgress(message);
+      progress(message);
     } else if (message is Duration) {
-      // Remaining time message received
       remaining(message);
     } else if (message is String && message == 'complete') {
-      // Completion message received
-      print('Isolate completed.');
       then();
       receivePort.close();
     } else {
-      // Error message received
       onError(message);
       receivePort.close();
     }
@@ -40,7 +31,7 @@ void unfreeze({
 }
 
 void _isolateFunction(Map<String, dynamic> payload) async {
-  final Worker worker = payload['worker'];
+  final UnfreezeWorker worker = payload['worker'];
   final SendPort sendPort = payload['port'];
 
   // Track the start time for calculating elapsed and remaining time

@@ -1,9 +1,9 @@
-class Worker {
-  final Future<void> Function() _asyncFunction;
+class UnfreezeWorker<T> {
+  final Future<T> Function() _asyncFunction;
   final Function(double) _onProgress;
   final Function(Duration) _onRemainingTime;
 
-  Worker(this._asyncFunction, this._onProgress, this._onRemainingTime);
+  UnfreezeWorker(this._asyncFunction, this._onProgress, this._onRemainingTime);
 
   Future<void> run() async {
     try {

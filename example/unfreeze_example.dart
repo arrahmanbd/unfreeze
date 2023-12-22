@@ -7,7 +7,7 @@ void main() {
 //This function will go for isolation because it is heavy
   unfreeze(
     function: demoAsyncFun,
-    onProgress: (progress) => print('Progress from main isolate: $progress%'),
+    progress: (progress) => print('Progress from main isolate: $progress%'),
     remaining: (calculate) => print(
         'Remaining time from main isolate: ${calculate.inSeconds} seconds'),
     then: () => print('Do some work after isolate completion...'),

@@ -1,12 +1,12 @@
 # Unfreeze
-A Dart package for isolate execution of asynchronous tasks using Dart isolates in Flutter projects.Also track the progress of each task , calculate and display the remaining time and handel errors easily.
+A Dart package for isolate execution of asynchronous tasks using Dart isolates in Flutter projects.Also track the progress of each task , time and display the remaining time and handel errors easily.
 
 # Features:
 - **Isolate-based Concurrency:** Leverage Dart isolates for parallel execution of asynchronous tasks, enhancing performance in Flutter applications.
 
 - **Progress Tracking:** Monitor and track the progress of each concurrent task, providing real-time insights into the execution status.
 
-- **Remaining Time Calculation:** Dynamically calculate and display the remaining time for each task, allowing for better task management and user experience.
+- **Remaining Time Calculation:** Dynamically time and display the remaining time for each task, allowing for better task management and user experience.
 
 - **After-Task Reporting:** Receive updates on tasks completed, enabling post-execution actions or additional processing steps after the isolates have finished their work.
 
@@ -41,8 +41,8 @@ void main() {
   unfreeze(
     function: demoAsyncFun,
     onProgress: (progress) => print('Progress from main isolate: $progress%'),
-    remaining: (calculate) => print(
-        'Remaining time from main isolate: ${calculate.inSeconds} seconds'),
+    remaining: (time) => print(
+        'Remaining time from main isolate: ${time.inSeconds} seconds'),
     then: () => print('Do some work after isolate completion...'),
     onError: (error) => print('Error from main isolate1: $error'),
   );
