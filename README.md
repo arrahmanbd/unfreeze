@@ -30,7 +30,7 @@ dart pub add unfreeze
 
 
 
-## Examples
+## ✨ Examples
 
 For single isolation use **unfreeze** function.
 ```dart
@@ -47,7 +47,7 @@ void main() {
     onError: (error) => print('Error from main isolate1: $error'),
   );
   print('3rd task');
-  //Third task will be continue without waiting
+  //Third task will be continue without waiting 💡
 
 }
 ```
@@ -55,7 +55,7 @@ For multiple isolation use **unfreezeTasks** function.
 ```dart
 unfreezeTasks(
     tasks: [primeCheck, task1, task2],
-    //Pass all tasks here
+    //Pass all tasks here 🤝
     onProgress: (progress) {
       print('Progress from main isolate thread: $progress%');
     },
@@ -76,6 +76,8 @@ unfreezeTasks(
 
 
 [![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
+
+[![Opensource](https://img.shields.io/static/v1?label=opensource&message=❤&color=red)](https://github.com/arrahmanbd/unfreeze)
 
 **✨  Feel free to contribute and add new features**
 

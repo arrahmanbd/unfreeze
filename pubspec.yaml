@@ -1,7 +1,8 @@
 name: unfreeze
-description: A starting point for Dart libraries or applications.
+description: A Dart package for isolate execution of asynchronous tasks using Dart isolates.
 version: 1.0.0
-# repository: https://github.com/my_org/my_repo
+repository: https://github.com/arrahmanbd/unfreeze
+homepage: https://github.com/arrahmanbd/unfreeze
 
 environment:
   sdk: ^3.2.0
@@ -11,5 +12,5 @@ dependencies:
   # path: ^1.8.0
 
 dev_dependencies:
-  lints: ^2.1.0
+  lints: ^3.0.0
   test: ^1.24.0
