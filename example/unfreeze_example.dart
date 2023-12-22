@@ -21,7 +21,7 @@ void main() {
 
   unfreezeTasks(
     tasks: [primeCheck, task1, task2],
-    onProgress: (progress) {
+    progress: (progress) {
       print('Progress from main isolate 2nd thread: $progress%');
     },
     onRemainingTime: (remainingTime) {

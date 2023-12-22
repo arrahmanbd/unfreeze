@@ -4,7 +4,7 @@ import 'unfreeze_worker.dart';
 
 void unfreezeTasks<T>({
   required List<Future<T> Function()> tasks,
-  required Function(double) onProgress,
+  required Function(double) progress,
   required Function(Duration) onRemainingTime,
   required Function() then,
   required Function(dynamic) onError,
@@ -13,7 +13,7 @@ void unfreezeTasks<T>({
 
   for (var task in tasks) {
     final ReceivePort receivePort = ReceivePort();
-    final worker = UnfreezeWorker<T>(task, onProgress, onRemainingTime);
+    final worker = UnfreezeWorker<T>(task, progress, onRemainingTime);
     receivePorts.add(receivePort);
 
     await Isolate.spawn(
@@ -25,7 +25,7 @@ void unfreezeTasks<T>({
     receivePort.listen((dynamic message) {
       if (message is double) {
         // Progress message received
-        onProgress(message);
+        progress(message);
       } else if (message is Duration) {
         // Remaining time message received
         onRemainingTime(message);
