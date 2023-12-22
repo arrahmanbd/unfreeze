@@ -40,7 +40,7 @@ void main() {
   print('1st task');
   unfreeze(
     function: demoAsyncFun,
-    onProgress: (progress) => print('Progress from main isolate: $progress%'),
+    progress: (progress) => print('Progress from main isolate: $progress%'),
     remaining: (time) => print(
         'Remaining time from main isolate: ${time.inSeconds} seconds'),
     then: () => print('Do some work after isolate completion...'),
@@ -56,12 +56,12 @@ For multiple isolation use **unfreezeTasks** function.
 unfreezeTasks(
     tasks: [primeCheck, task1, task2],
     //Pass all tasks here 🤝
-    onProgress: (progress) {
+    progress: (progress) {
       print('Progress from main isolate thread: $progress%');
     },
-    onRemainingTime: (remainingTime) {
+    remaining: (time) {
       print(
-          'Remaining time from main isolate thread: ${remainingTime.inSeconds} seconds');
+          'Remaining time from main isolate thread: ${time.inSeconds} seconds');
     },
     then: () {
       print('Remaining work after isolates completion thread...');
