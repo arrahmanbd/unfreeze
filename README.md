@@ -74,20 +74,20 @@ unfreezeTasks(
 ## ⚠️ Warning:
 In Dart isolates, only a limited set of data types, known as "sendable" types, can be safely sent between isolates. These types include:
 
-# Primitive types:
+### Primitive types:
 
 null
 bool
 num (including integers and doubles)
 String
-## Typed data:
+### Typed data:
 
-## List and Uint8List
+### List and Uint8List
 Int8List, Uint8List, Int16List, Uint16List, Int32List, Uint32List, Int64List, Uint64List
 Float32List, Float64List
 Other isolates:
 
-## ReceivePort and SendPort
+### ReceivePort and SendPort
 Capability
 A few specific types from the dart:core library:
 
