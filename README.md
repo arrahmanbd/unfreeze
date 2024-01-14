@@ -71,6 +71,31 @@ unfreezeTasks(
     },
   );
 ```
+## ⚠️ Warning:
+In Dart isolates, only a limited set of data types, known as "sendable" types, can be safely sent between isolates. These types include:
+
+# Primitive types:
+
+null
+bool
+num (including integers and doubles)
+String
+## Typed data:
+
+## List and Uint8List
+Int8List, Uint8List, Int16List, Uint16List, Int32List, Uint32List, Int64List, Uint64List
+Float32List, Float64List
+Other isolates:
+
+## ReceivePort and SendPort
+Capability
+A few specific types from the dart:core library:
+
+DateTime
+Uri
+It's important to note that functions, closures, and non-serializable objects cannot be sent between isolates. If you need to perform tasks in parallel isolates, make sure that the data you pass between them adheres to these restrictions.
+
+If you encounter issues like "Unhandled Exception: Invalid argument(s): Illegal argument in isolate message: object is unsendable," review the code to identify the non-serializable object causing the problem and find an alternative solution.
 
 ## Badges
 
