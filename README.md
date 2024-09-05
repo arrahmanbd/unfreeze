@@ -99,9 +99,6 @@ If you encounter issues like "Unhandled Exception: Invalid argument(s): Illegal 
 
 ## Badges
 
-
-[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)
-
 [![Opensource](https://img.shields.io/static/v1?label=opensource&message=❤&color=red)](https://github.com/arrahmanbd/unfreeze)
 
 **✨  Feel free to contribute and add new features**
